@@ -1,0 +1,32 @@
+---
+title: "class"
+author: "Hoda Abdalla"
+date: "11/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(googlesheets4)
+library(tidyverse)
+```
+
+
+```{r}
+sheets_deauth()
+x <- read_sheet("13NhlT-Oik5P4NOKRWwrJ7xZQlddFNk81HHEw9wkWglM")
+```
+
+```{r}
+model <- lm(dvote ~ partisanship, data = x)
+
+summary(model)
+```
+
+```{r}
+x %>%
+  ggplot(aes(partisanship, dvote)) +
+  geom_jitter(height = 0.2) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
